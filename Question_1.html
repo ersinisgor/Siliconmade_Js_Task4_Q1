@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question 1</title>
+  </head>
+  <body>
+    <div>
+      1'den 99'a kadar olan sayıları for döngüsü ile yan yana
+      <button onclick="sortNumbers()" id="sort">Sırala</button>
+    </div>
+    <br />
+    <button id="randomNumber" onclick="showRandomNumberToScreen()" disabled>
+      Rastgele sayı seç
+    </button>
+    <br />
+    <div id="screen">
+      <br />
+    </div>
+
+    <script>
+      const screenElement = document.getElementById("screen");
+
+      function sortNumbers() {
+        disableSortButton();
+        enableRandomNumberButton();
+        screenElement.innerHTML = "";
+        createBrElement();
+
+        for (let i = 1; i < 100; i++) {
+          addSpanInDiv(i);
+          if (i % 10 === 0) {
+            createBrElement();
+            createBrElement();
+          }
+        }
+      }
+
+      function addSpanInDiv(text) {
+        const spanElement = document.createElement("span");
+        spanElement.classList.add(`num-${text}`);
+        spanElement.innerText = text + " ";
+        screenElement.appendChild(spanElement);
+      }
+
+      function createBrElement() {
+        const brElement = document.createElement("br");
+        screenElement.appendChild(brElement);
+      }
+
+      function disableSortButton() {
+        const sortButton = document.getElementById("sort");
+        sortButton.disabled = true;
+      }
+
+      function enableRandomNumberButton() {
+        const randomNumberButton = document.getElementById("randomNumber");
+        randomNumberButton.disabled = false;
+      }
+
+      function generateRandomNumber() {
+        return Math.floor(Math.random() * 99) + 1;
+      }
+
+      function showRandomNumberToScreen() {
+        const randomNumber = generateRandomNumber();
+
+        const spanElements = screenElement.getElementsByTagName("span");
+        for (let i = 0; i < spanElements.length; i++) {
+          if (spanElements[i].innerText.trim() === randomNumber.toString()) {
+            spanElements[i].style.color = "red";
+            spanElements[i].style.fontWeight = "bold";
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
